@@ -1,0 +1,86 @@
+import RPi.GPIO as GPIO
+import time
+from time import sleep
+
+
+GPIO.setmode(GPIO.BOARD)
+LED1=22
+led=15
+GPIO.setup(LED1,GPIO.OUT)
+GPIO.setup(led,GPIO.OUT)
+pwm2=GPIO.PWM(led,1000)
+pwm1=GPIO.PWM(LED1,1000)
+pwm1.start(0)
+pwm2.start(0)
+bright=1
+
+pin_to_circuit = 7
+
+def rc_time (pin_to_circuit):
+	count = 0
+	
+	GPIO.setup(pin_to_circuit, GPIO.OUT)
+	GPIO.output(pin_to_circuit,GPIO.LOW)
+	time.sleep(0.1)
+	
+	GPIO.setup(pin_to_circuit, GPIO.IN)
+	
+	while (GPIO.input(pin_to_circuit) == GPIO.LOW)
+		count +=1
+		
+	return count
+	
+try:
+	while True:
+		value= rc_time(pin_to_circuit)
+		if(value<250 and value > 0):
+				bright=2
+				pwm1.ChangeDutyCycle(bright)
+				pwm2.ChangeDutyCycle(bright)
+				sleep(.5)
+				print "new brightness is: ",bright
+		if(value<500 and value >250):
+				bright=10
+				pwm1.ChangeDutyCycle(bright)
+				pwm2.ChangeDutyCycle(bright)
+				sleep(.5)
+				if(value<4000 and value > 3000):
+						bright=57
+						pwm1.ChangeDutyCycle(bright)
+						pwm2.ChangeDutyCycle(bright)
+						sleep(.5)
+						print "new brightness is: ",bright
+				if(value<5500 and value > 4000):
+						bright=65
+						pwm1.ChangeDutyCycle(bright)
+						pwm2.ChangeDutyCycle(bright)
+						sleep(.5)
+						print "new brightness is: ",bright
+				if(value<6500 and value > 5500):
+						bright=77
+						pwm1.ChangeDutyCycle(bright)
+						pwm2.ChangeDutyCycle(bright)
+						sleep(.5)
+						print "new brightness is: ",bright
+				if(value<7500 and value > 6500):
+						bright=85
+						pwm1.ChangeDutyCycle(bright)
+						pwm2.ChangeDutyCycle(bright)
+						sleep(.5)
+						print "new brightness is: ",bright
+						
+				if(value>7500)
+						bright=85
+						pwm1.ChangeDutyCycle(bright)
+						sleep(.5)
+						print "new brightness is: ",bright
+except KeyboardInterrupt:
+	pass
+finally:
+	GPIO.cleanup()
+				
+				
+				
+				
+				
+
