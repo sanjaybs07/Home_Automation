@@ -1,0 +1,41 @@
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+led=18
+trig=23
+echo=24
+led1=17
+led2=27
+GPIO.setwarnings(False)
+print "measuring"
+GPIO.setup(trip,GPIO.OUT)
+GPIO.setup(echo,GPIO.IN)
+GPIO.setup(led,GPIO.OUT)
+GPIO.setup(led1,GPIO.OUT)
+GPIO.setup(led2,GPIO.OUT)
+GPIO.output(led2,False)
+GPIO.output(led,False)
+GPIO.output(led1,False)
+
+while True:
+		GPIO.output(trig,False)
+		
+		time.sleep(1)
+		GPIO.output(trig,True)
+		time.sleep(0.00001)
+		GPIO.output(trig,False)
+		while GPIO.input(echo)==0:
+				start=time.time()
+		timeElapsed=stop-start
+		distance=timeElapsed*17150
+		distance=round(distance,2)
+		if distance > 0 and distance < 10:
+				print "dist",distance
+				GPIO.output(led,True)
+				GPIO.output(led2,True)
+				GPIO.output(led1,True)
+		else:
+				print "out of range"
+				GPIO.output(led,False)
+				GPIO.output(led1,False)
+				GPIO.output(led2,False)
